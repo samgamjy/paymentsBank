@@ -36,7 +36,7 @@
         </thead>
         <c:forEach var="client" items="${clients}">
             <tr>
-                <td><a href="/PaymentControl?page=read_client&login=${client.login}">${client.login}</a></td>
+                <td><a href="/PaymentControl?page=control_client&login=${client.login}">${client.login}</a></td>
                 <td>${client.firstName}</td>
                 <td>${client.lastName}</td>
                 <td>${client.role}</td>

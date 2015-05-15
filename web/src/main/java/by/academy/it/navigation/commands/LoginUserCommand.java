@@ -29,7 +29,7 @@ public class LoginUserCommand implements Command {
 //                filterChain.doFilter(servletRequest, servletResponse);
 //            }
 
-            String login = request.getParameter(PARAM_CLIENT_ID);
+            String login = request.getParameter(PARAM_CLIENT_LOGIN);
             String pass = request.getParameter(PARAM_CLIENT_PASSWORD);
 
             ClientService clientService = new ClientService();

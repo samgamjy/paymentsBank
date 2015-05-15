@@ -18,7 +18,7 @@ import static by.academy.it.resources.constant.Constants.*;
 public class ReadClientCommand implements Command {
     @Override
     public String execCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = request.getParameter(PARAM_CLIENT_ID);
+        String login = request.getParameter(PARAM_CLIENT_LOGIN);
         ClientService clientService = new ClientService();
         Client client = clientService.getClient(login);
 

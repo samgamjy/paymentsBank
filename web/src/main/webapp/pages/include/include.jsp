@@ -7,9 +7,7 @@
 <%
     String username=(String) session.getAttribute("userLastName");
     int role = 0;
-    if(username==null) {
-        username = "guest";
-    }else{
-        role = 2;//Integer.parseInt((String)session.getAttribute("role"));
+    if (session.getAttribute("role") != null) {
+        role = (Integer) session.getAttribute("role");
     }
 %>

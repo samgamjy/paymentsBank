@@ -19,7 +19,7 @@ public class CreateClientCommand implements Command {
 
     @Override
     public String execCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        String login = request.getParameter(PARAM_CLIENT_ID);
+        String login = request.getParameter(PARAM_CLIENT_LOGIN);
         String password = request.getParameter(PARAM_CLIENT_PASSWORD);
         String firstName = request.getParameter(PARAM_CLIENT_FIRST_NAME);
         String lastName = request.getParameter(PARAM_CLIENT_LAST_NAME);

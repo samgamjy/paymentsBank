@@ -6,4 +6,6 @@ package by.academy.it.dao;
 public interface AdminDAO extends UserDAO {
 
 
+
+
 }

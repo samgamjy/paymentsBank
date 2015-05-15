@@ -58,6 +58,27 @@ public enum Commands {
         public Command getCommand() {
             return new ProfileClientCommand();
         }
+    },
+
+    CREATE_ORDER{
+        @Override
+        public Command getCommand() {
+            return new CreateOrderCommand();
+        }
+    },
+
+    LIST_ORDER{
+        @Override
+        public Command getCommand() {
+            return new ListOrderByBankAccountCommand();
+        }
+    },
+
+    CONTROL_CLIENT{
+        @Override
+        public Command getCommand() {
+            return new ControlClientCommand();
+        }
     }
 
     ;

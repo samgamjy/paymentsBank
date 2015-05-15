@@ -19,7 +19,7 @@ public class Constants {
     public static final String SQL_INSERT_CLIENT = "INSERT INTO clients (login,password,first_name,last_name,bank_id,role_id) values (?,?,?,?,?,?)";
     public static final String SQL_INSERT_CREDIT_CARD = "INSERT INTO credit_cards () VALUES()";
     public static final String SQL_INSERT_BANK_ACCOUNT = "INSERT INTO bank_accounts (valid, blocked, credit_card_id, sum) VALUES (?,?,?,?)";
-    public static final String SQL_INSERT_ORDERS = "INSERT INTO orders (bank_account_id, sum) VALUES (?,?);";
+    public static final String SQL_INSERT_ORDERS = "INSERT INTO orders (bank_account_id, sum, paid) VALUES (?,?,?);";
 
 
     public static final String SQL_GET_CREDIT_CARD = "SELECT credit_cards.id FROM credit_cards,bank_accounts WHERE (bank_accounts.id = ?) AND (bank_accounts.credit_card_id = credit_cards.id);";
@@ -28,10 +28,14 @@ public class Constants {
     public static final String SQL_GET_BANK_ACCOUNT_ITEM = "SELECT * FROM bank_accounts WHERE (id = ?)";
     public static final String SQL_GET_BANK_ACCOUNT_ID_LIST = "SELECT id FROM bank_accounts";
     public static final String SQL_GET_CLIENTS = "SELECT * FROM clients";
+    public static final String SQL_GET_ORDER_ITEM = "SELECT * FROM orders WHERE (id = ?)";
+    public static final String SQL_GET_ORDER_LIST = "SELECT * FROM orders";
+    public static final String SQL_GET_ORDER_LIST_BY_BANK_ACCOUNT = "SELECT * FROM orders WHERE (bank_account_id = ?)";
 
     public static final String SQL_DELETE_CREDIT_CARD = "DELETE FROM credit_cards WHERE id=?";
     public static final String SQL_DELETE_BANK_ACCOUNT = "DELETE FROM bank_accounts WHERE id=?";
     public static final String SQL_DELETE_CLIENT_ACCOUNT = "DELETE FROM clients WHERE login=?";
+    public static final String SQL_DELETE_ORDER = "DELETE FROM orders WHERE id=?";
 
     public static final String SQL_BLOCK_BANK_ACCOUNT = "UPDATE bank_accounts SET blocked=? WHERE id=?";
     public static final String SQL_BANK_ACCOUNT_TRANSFER_MONEY = "UPDATE bank_accounts SET sum=? WHERE id=?";
@@ -44,7 +48,8 @@ public class Constants {
 
     public static final String PARAM_CLIENTS = "clients";
     public static final String PARAM_CLIENT_ITEM = "client";
-    public static final String PARAM_CLIENT_ID = "login";
+    public static final String PARAM_CLIENT_ID = "clientID";
+    public static final String PARAM_CLIENT_LOGIN = "login";
     public static final String PARAM_CLIENT_PASSWORD = "password";
     public static final String PARAM_CLIENT_FIRST_NAME = "firstName";
     public static final String PARAM_CLIENT_LAST_NAME = "lastName";
@@ -57,6 +62,12 @@ public class Constants {
     public static final String PARAM_BANK_ACCOUNT_VALID = "valid";
     public static final String PARAM_BANK_ACCOUNT_BLOCKED = "blocked";
     public static final String PARAM_BANK_ACCOUNT_CREDIT_CARD_ID = "creditCardID";
+
+    public static final String PARAM_ORDER_ID = "id";
+    public static final String PARAM_ORDER_BANK_ACCOUNT_ID = "bankAccountID";
+    public static final String PARAM_ORDER_SUM = "sum";
+    public static final String PARAM_ORDER_LIST = "orderList";
+
 
     public static final String PARAM_CREDIT_CARD_ID = "id";
 
@@ -93,6 +104,9 @@ public class Constants {
     public static final String PAGE_CLIENT_INFO = "/pages/clientInfo.jsp";
     public static final String PAGE_LOGIN = "/pages/login.jsp";
     public static final String PAGE_PROFILE_CLIENT = "/pages/profileClient.jsp";
+    public static final String PAGE_CONTROL_SERVICE_CLIENT = "/pages/clientControlService.jsp";
+    public static final String PAGE_LIST_ORDERS = "/pages/listOrder.jsp";
+
     public static final String PAGE_MAIN = "/index.jsp";
 
 }
