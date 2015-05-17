@@ -19,7 +19,7 @@ import static by.academy.it.resources.constant.Constants.*;
 public class ControlClientCommand implements Command {
     @Override
     public String execCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String clientID = request.getParameter(PARAM_CLIENT_ID);
+        String clientID = request.getParameter(PARAM_CLIENT_LOGIN);
         ClientService clientService = new ClientService();
         Client client = clientService.getClient(clientID);
 

@@ -79,6 +79,12 @@ public enum Commands {
         public Command getCommand() {
             return new ControlClientCommand();
         }
+    },
+    PAY_ORDER{
+        @Override
+        public Command getCommand() {
+            return new PayOrderCommand();
+        }
     }
 
     ;

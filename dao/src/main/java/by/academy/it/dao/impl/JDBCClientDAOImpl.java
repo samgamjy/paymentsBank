@@ -6,6 +6,7 @@ import by.academy.it.entity.UserRole;
 import by.academy.it.pool.SimpleBasicDataSource;
 import by.academy.it.utils.DBUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,9 +19,11 @@ public class JDBCClientDAOImpl implements ClientDAO {
 
     private SimpleBasicDataSource dataSource;
     private Logger logger = Logger.getLogger(JDBCCreditCardDAOImpl.class);
+    private String logPropFile = "log4j.properties";
 
     public JDBCClientDAOImpl() {
         this.dataSource = SimpleBasicDataSource.getInstance();
+        PropertyConfigurator.configure(logPropFile);
         logger.info("->JDBCClientDAOImpl.Constructor JDBCClientDAOImpl(this.dataSource = " + this.dataSource + ")");
     }
 

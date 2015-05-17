@@ -10,10 +10,12 @@
         root = "Client";
     }else{
         if (role == 0) {
-            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
+            profile = "<a href=\"/PaymentControl?page=PROFILE_CLIENT\">profile</a>";
+//            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
             root = "Guest";
         } else{
-            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
+            profile = "<a href=\"/PaymentControl?page=PROFILE_CLIENT\">profile</a>";
+//            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
             root = "Guest";
         }
     }

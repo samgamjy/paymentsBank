@@ -39,6 +39,7 @@ public class Constants {
 
     public static final String SQL_BLOCK_BANK_ACCOUNT = "UPDATE bank_accounts SET blocked=? WHERE id=?";
     public static final String SQL_BANK_ACCOUNT_TRANSFER_MONEY = "UPDATE bank_accounts SET sum=? WHERE id=?";
+    public static final String SQL_ORDER_PAID = "UPDATE orders SET paid=? WHERE id=?";
 
     public static final int ROLE_GUEST = 0;
     public static final int ROLE_ADMINISTRATOR = 1;

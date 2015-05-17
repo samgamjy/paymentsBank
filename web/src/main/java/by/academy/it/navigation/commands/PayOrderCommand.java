@@ -17,9 +17,7 @@ import java.util.List;
 
 import static by.academy.it.resources.constant.Constants.*;
 
-
-public class ProfileClientCommand implements Command {
-
+public class PayOrderCommand implements Command {
     @Override
     public String execCommand(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -27,25 +25,39 @@ public class ProfileClientCommand implements Command {
             String login = (String) session.getAttribute(PARAM_SESSION_USER_LOGIN);
             ClientService clientService = new ClientService();
             Client client = clientService.getClient(login);
-//            int bankAccountID = Integer.parseInt(request.getParameter(PARAM_CLIENT_BANK_ACCOUNT_ID));
+            int bankAccountID = Integer.parseInt(request.getParameter(PARAM_ORDER_BANK_ACCOUNT_ID));
+            int orderID = Integer.parseInt(request.getParameter(PARAM_ORDER_ID));
+
+            OrderService orderService = new OrderService();
+            Order order = orderService.getOrder(orderID);
 
             BankAccountService bankAccountService = new BankAccountService();
             BankAccount bankAccount = bankAccountService.getBankAccount(client.getBankAccountID());
-            List<Integer> bankAccountIDList = bankAccountService.getBankAccountIDList();
 
-            OrderService orderService = new OrderService();
+            if ((order.getId() == orderID) && (!order.isPaid())) {
+                if (bankAccountService.payOrder(order)) {
+                    orderService.setOrderPay(orderID, true);
+                }
+            }
+
             List<Order> orderList = orderService.getOrderListByBankAccount(client.getBankAccountID());
 
+            List<Integer> bankAccountIDList = bankAccountService.getBankAccountIDList();
             request.setAttribute(PARAM_BANK_ACCOUNT_TRANSFER_ID_LIST, bankAccountIDList);
             request.setAttribute(PARAM_CLIENT_ITEM, client);
             request.setAttribute(PARAM_BANK_ACCOUNT_ITEM, bankAccount);
             request.setAttribute(PARAM_ORDER_LIST, orderList);
 
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_PROFILE_CLIENT);
             requestDispatcher.forward(request, response);
 
             return PAGE_PROFILE_CLIENT;
+        }else{
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_MAIN);
+            requestDispatcher.forward(request, response);
         }
+
         return null;
     }
 }

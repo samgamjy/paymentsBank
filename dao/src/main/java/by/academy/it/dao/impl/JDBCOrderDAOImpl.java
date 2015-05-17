@@ -45,7 +45,7 @@ public class JDBCOrderDAOImpl implements OrderDAO {
             preparedStatement.executeUpdate();
             logger.info("--JDBCOrderDAOImpl.createOrder executeUpdate()");
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 orderID = resultSet.getInt(1);
             }
         } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class JDBCOrderDAOImpl implements OrderDAO {
             preparedStatement.setInt(1, orderID);
             ResultSet resultSet = preparedStatement.executeQuery();
             logger.info("--JDBCOrderDAOImpl.getOrder executeQuery()");
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 order.setId(resultSet.getInt(1));
                 order.setBankAccountID(resultSet.getInt(2));
                 order.setSum(resultSet.getDouble(3));
@@ -88,7 +88,6 @@ public class JDBCOrderDAOImpl implements OrderDAO {
         logger.info("<-JDBCOrderDAOImpl.Order getOrder(orderID = " + orderID + ") = " + order);
         return order;
     }
-
 
 
     @Override
@@ -176,5 +175,30 @@ public class JDBCOrderDAOImpl implements OrderDAO {
         }
         logger.info("<-JDBCOrderDAOImpl.List<Order> getOrderListByBankAccount()");
         return orderList;
+    }
+
+    @Override
+    public void setOrderPay(int orderID, boolean isPaid) {
+        logger.info("->JDBCOrderDAOImpl.void setOrderPay(orderID = " + orderID + "isPaid" + isPaid + ")");
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = dataSource.getConection();
+            preparedStatement = connection.prepareStatement(SQL_ORDER_PAID);
+            preparedStatement.setBoolean(1, isPaid);
+            preparedStatement.setInt(2, orderID);
+
+            preparedStatement.executeUpdate();
+            logger.info("--JDBCOrderDAOImpl.setOrderPay executeUpdate(SQL_ORDER_PAID)");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error("--JDBCOrderDAOImpl.getOrderListByBankAccount.Exception = " + e.getErrorCode());
+            logger.info("<-JDBCOrderDAOImpl.void setOrderPay(orderID = " + orderID + "isPaid" + isPaid + ") = false");
+        } finally {
+            DBUtils.close(preparedStatement, connection);
+        }
+        logger.info("<-JDBCOrderDAOImpl.void setOrderPay(orderID = " + orderID + "isPaid" + isPaid + ") = true");
     }
 }

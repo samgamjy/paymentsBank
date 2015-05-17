@@ -75,6 +75,33 @@
     <br>
     <table width="800" , align="justify">
         <thead>
+        <th>ID</th>
+        <th>sum</th>
+        <th>paid</th>
+        </thead>
+        <c:forEach var="order" items="${orderList}">
+            <tr>
+                <td>
+                        ${order.id}
+                </td>
+                <td>
+                        ${order.sum}
+                </td>
+                <td>
+
+                    <c:if test="${order.paid}">
+                        paid
+                    </c:if>
+                    <c:if test="${!order.paid}">
+                        <a href="/PaymentControl?page=PAY_ORDER&bankAccountID=${bankAccount.id}&id=${order.id}">Pay</a>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br>
+    <table width="800" , align="justify">
+        <thead>
         <th><fmt:message key="create.client.title.caption.available.actions"/></th>
         </thead>
         <tr>

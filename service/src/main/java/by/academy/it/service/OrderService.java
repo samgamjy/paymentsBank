@@ -32,4 +32,8 @@ public class OrderService {
         return orderDAO.getOrderListByBankAccount(bankAccountID);
     }
 
+    public void setOrderPay(int orderID, boolean isPaid){
+        orderDAO.setOrderPay(orderID, isPaid);
+    }
+
 }

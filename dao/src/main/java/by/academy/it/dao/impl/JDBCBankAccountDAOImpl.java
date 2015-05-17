@@ -2,6 +2,7 @@ package by.academy.it.dao.impl;
 
 import by.academy.it.dao.BankAccountDAO;
 import by.academy.it.entity.BankAccount;
+import by.academy.it.entity.Order;
 import by.academy.it.pool.SimpleBasicDataSource;
 import by.academy.it.utils.DBUtils;
 import org.apache.log4j.Logger;
@@ -44,7 +45,7 @@ public class JDBCBankAccountDAOImpl implements BankAccountDAO {
             numero = preparedStatement.executeUpdate();
             logger.info("--JDBCBankAccountDAOImpl.create executeUpdate()");
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 bankAccountID = resultSet.getInt(1);
             }
 
@@ -77,7 +78,7 @@ public class JDBCBankAccountDAOImpl implements BankAccountDAO {
             preparedStatement.setInt(1, bankAccountID);
             ResultSet resultSet = preparedStatement.executeQuery();
             logger.info("--JDBCBankAccountDAOImpl.read executeQuery()");
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 bankAccount.setId(resultSet.getInt(1));
                 bankAccount.setValid(resultSet.getBoolean(2));
                 bankAccount.setBlocked(resultSet.getBoolean(3));
@@ -155,8 +156,8 @@ public class JDBCBankAccountDAOImpl implements BankAccountDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         BankAccount srcBankAccount = read(srcBankAccountID);
-        if (srcBankAccount != null){
-            if (srcBankAccount.getSum() >= transferSum){
+        if (srcBankAccount != null) {
+            if (srcBankAccount.getSum() >= transferSum) {
                 if (!srcBankAccount.isBlocked() && srcBankAccount.isValid()) {
                     BankAccount dstBankAccount = read(dstBankAccountID);
                     if (dstBankAccount != null) {
@@ -192,7 +193,7 @@ public class JDBCBankAccountDAOImpl implements BankAccountDAO {
                                 preparedStatement.setInt(2, srcBankAccount.getId());
                                 preparedStatement.executeUpdate();
                                 logger.info("--JDBCBankAccountDAOImpl.transferMoney executeUpdate(SQL_BANK_ACCOUNT_TRANSFER_MONEY)");
-                            }catch (SQLException exceptionReturnMoney) {
+                            } catch (SQLException exceptionReturnMoney) {
                                 e.printStackTrace();
                                 logger.error("--JDBCBankAccountDAOImpl.create.Exception = " + e.getErrorCode());
                             }
@@ -241,5 +242,40 @@ public class JDBCBankAccountDAOImpl implements BankAccountDAO {
     @Override
     public List<BankAccount> getAll() {
         return null;
+    }
+
+
+    @Override
+    public boolean payOrder(Order order) {
+        logger.info("->JDBCOrderDAOImpl.boolean payOrder(order = " + order + ")");
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        if (order != null) {
+            int bankAccountID = order.getBankAccountID();
+            BankAccount bankAccount = read(bankAccountID);
+            double sum = order.getSum();
+
+            try {
+                connection = dataSource.getConection();
+                preparedStatement = connection.prepareStatement(SQL_BANK_ACCOUNT_TRANSFER_MONEY);
+                preparedStatement.setDouble(1, bankAccount.getSum() - order.getSum());
+                preparedStatement.setInt(2, bankAccountID);
+                preparedStatement.executeUpdate();
+                logger.info("--JDBCBankAccountDAOImpl.boolean payOrder(SQL_BANK_ACCOUNT_TRANSFER_MONEY)");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.error("--JDBCBankAccountDAOImpl.create.Exception = " + e.getErrorCode());
+                return false;
+            } finally {
+                DBUtils.close(preparedStatement, connection);
+
+            }
+
+
+        }
+        logger.info("<-boolean payOrder(order = " + order + ") = true");
+        return true;
     }
 }

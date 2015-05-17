@@ -1,6 +1,7 @@
 package by.academy.it.dao;
 
 import by.academy.it.entity.BankAccount;
+import by.academy.it.entity.Order;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public interface BankAccountDAO {
     boolean transferMoney(int dstBankAccountID, int srcBankAccountID, double transferSum);
     List<Integer> getBankAccountIDList();
     List<BankAccount> getAll();
+    boolean payOrder(Order order);
 }
 
 

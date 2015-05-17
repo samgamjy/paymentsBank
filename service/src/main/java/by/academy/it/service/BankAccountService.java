@@ -3,6 +3,7 @@ package by.academy.it.service;
 import by.academy.it.dao.BankAccountDAO;
 import by.academy.it.dao.impl.JDBCBankAccountDAOImpl;
 import by.academy.it.entity.BankAccount;
+import by.academy.it.entity.Order;
 
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class BankAccountService {
 
     public boolean transferMoney(int dstBankAccountID, int srcBankAccountID, double transferSum){
         return bankAccountDAO.transferMoney(dstBankAccountID, srcBankAccountID, transferSum);
+    }
+
+    public boolean payOrder(Order order){
+        return bankAccountDAO.payOrder(order);
     }
 
     public List<Integer> getBankAccountIDList(){

@@ -13,5 +13,6 @@ public interface OrderDAO {
     void deleteOrder(int orderID);
     List<Order> getOrderList();
     List<Order> getOrderListByBankAccount(int bankAccountID);
+    void setOrderPay(int orderID, boolean isPaid);
 
 }
