@@ -2,24 +2,38 @@
 <%@ page language="java" %>
 <%
     String profile="";
-
-//    int role = Integer.parseInt((String)session.getAttribute("role"));
     String root = "Guest";
-    if (role == 2){
+    String logout = "logout";
+    int role = 0;
+    if (session.getAttribute("role") != null) {
+        role = (Integer) session.getAttribute("role");
+    }
+    if (role == 1){
         profile = "<a href=\"/PaymentControl?page=PROFILE_CLIENT\">profile</a>";
         root = "Client";
+        logout = "<a href=\"/PaymentControl?page=LOGOUT_USER\">logout</a>";
     }else{
         if (role == 0) {
-            profile = "<a href=\"/PaymentControl?page=PROFILE_CLIENT\">profile</a>";
-//            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
-            root = "Guest";
+            logout = "<a href=\"/PaymentControl?page=LOGOUT_USER\">logout</a>";
+            profile = "<a href=\"PaymentControl?page=list_clients\">client list</a>";
+            root = "Admin";
         } else{
-            profile = "<a href=\"/PaymentControl?page=PROFILE_CLIENT\">profile</a>";
-//            profile = "<a href=\"/pages/createClient.jsp\">registration</a>";
+            logout = "<a href=\"/pages/createClient.jsp\">registration</a>";
             root = "Guest";
         }
     }
-
 %>
-<p>Profile detail, <%=profile%></p>
-<p>Role, <%=root%></p>
+
+<table align="right">
+    <tr bgcolor="white">
+        <td>
+            Profile detail, <%=profile%>
+        </td>
+        <td>
+            Role, <%=root%>
+        </td>
+        <td>
+            <%=logout%>
+        </td>
+    </tr>
+</table>

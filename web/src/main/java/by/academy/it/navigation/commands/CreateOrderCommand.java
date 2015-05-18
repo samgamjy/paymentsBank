@@ -2,7 +2,6 @@ package by.academy.it.navigation.commands;
 
 import by.academy.it.service.OrderService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +21,10 @@ public class CreateOrderCommand implements Command {
         if (orderID != INVALID_PARAM) {
 
             try {
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_CONTROL_SERVICE_CLIENT);
-                requestDispatcher.forward(request, response);
-//                response.sendRedirect(PAGE_LIST_CLIENTS);
+//                RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_CONTROL_SERVICE_CLIENT);
+                String login = request.getParameter(PARAM_CLIENT_LOGIN);
+                String httpURL ="/PaymentControl?page=control_client&login=" + login;
+                response.sendRedirect(httpURL);
             } catch (IOException e) {
                 e.printStackTrace();
             }

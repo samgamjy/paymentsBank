@@ -39,6 +39,13 @@ public enum Commands {
         }
     },
 
+    LOGOUT_USER{
+        @Override
+        public Command getCommand() {
+            return new LogoutUserCommand();
+        }
+    },
+
     BLOCK_CREDIT_CARD{
         @Override
         public Command getCommand() {

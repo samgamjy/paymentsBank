@@ -18,6 +18,7 @@
     </style>
 </head>
 <body>
+<%@ include file="/pages/include/linkMainPage.jsp" %>
 <fieldset>
     <legend><fmt:message key="info.client.title.group"/> <b><%=username%>
     </b></legend>

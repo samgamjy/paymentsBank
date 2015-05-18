@@ -82,7 +82,7 @@ public class JDBCClientDAOImpl implements ClientDAO {
                 client.setFirstName(resultSet.getString(3));
                 client.setLastName(resultSet.getString(4));
                 client.setBankAccountID(resultSet.getInt(5));
-                client.setRole(UserRole.values()[resultSet.getInt(6) - 1]);
+                client.setRole(UserRole.values()[resultSet.getInt(6)]);
             }
 
 
@@ -175,7 +175,7 @@ public class JDBCClientDAOImpl implements ClientDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_GET_CLIENTS);
             logger.info("--JDBCClientDAOImpl.getAll executeQuery()");
-            clientList = initAuthors(resultSet);
+            clientList = initClients(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("--JDBCClientDAOImpl.create.Exception = " + e.getErrorCode());
@@ -186,7 +186,7 @@ public class JDBCClientDAOImpl implements ClientDAO {
         return clientList;
     }
 
-    private List<Client> initAuthors(ResultSet resultSet) throws SQLException {
+    private List<Client> initClients(ResultSet resultSet) throws SQLException {
         List<Client> clientList = new ArrayList<Client>();
         while (resultSet.next()) {
             Client client = new Client();
@@ -194,7 +194,7 @@ public class JDBCClientDAOImpl implements ClientDAO {
             client.setFirstName(resultSet.getString(3));
             client.setLastName(resultSet.getString(4));
             client.setBankAccountID(Integer.parseInt(resultSet.getString(5)));
-            client.setRole(UserRole.values()[Integer.parseInt(resultSet.getString(6)) - 1]);
+            client.setRole(UserRole.values()[Integer.parseInt(resultSet.getString(6))]);
             clientList.add(client);
         }
         return clientList;

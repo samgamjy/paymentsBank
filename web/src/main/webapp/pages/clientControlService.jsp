@@ -18,117 +18,138 @@
     </style>
 </head>
 <body>
+<%@ include file="/pages/include/welcomeHeader.jsp" %>
 <fieldset>
     <legend><fmt:message key="client.control.service.controlClientTitle"/> <b><%=username%>
     </b></legend>
-    <table width="800">
-        <thead>
-        <th><fmt:message key="client.control.service.userInfo"/></th>
-        </thead>
+    <table valign="top" align="justify">
         <tr>
-            <td><fmt:message key="client.control.service.userInfo.login"/></td>
-            <td><fmt:message key="client.control.service.userInfo.firstName"/></td>
-            <td><fmt:message key="client.control.service.userInfo.lastName"/></td>
-            <td><fmt:message key="client.control.service.userInfo.bankAccountID"/></td>
-        </tr>
-        <tr>
-            <td>
-                ${client.login}
+            <td width="70%" valign="top" align="justify">
+                <table width="100%">
+                    <thead>
+                    <th><fmt:message key="client.control.service.userInfo"/></th>
+                    </thead>
+                    <tr>
+                        <td><fmt:message key="client.control.service.userInfo.login"/></td>
+                        <td><fmt:message key="client.control.service.userInfo.firstName"/></td>
+                        <td><fmt:message key="client.control.service.userInfo.lastName"/></td>
+                        <td><fmt:message key="client.control.service.userInfo.bankAccountID"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ${client.login}
+                        </td>
+                        <td>
+                            ${client.firstName}
+                        </td>
+                        <td>
+                            ${client.lastName}
+                        </td>
+                        <td>
+                            ${client.bankAccountID}
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table width="100%">
+                    <thead>
+                    <th colspan="5"><fmt:message key="client.control.service.bankInfo"/></th>
+                    </thead>
+                    <tr>
+                        <td><fmt:message key="client.control.service.bankInfo.bankAccountID"/></td>
+                        <td><fmt:message key="client.control.service.bankInfo.sum"/></td>
+                        <td><fmt:message key="client.control.service.bankInfo.valid"/></td>
+                        <td><fmt:message key="client.control.service.bankInfo.blocked"/></td>
+                        <td><fmt:message key="client.control.service.bankInfo.creditCardID"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ${bankAccount.id}
+                        </td>
+                        <td>
+                            ${bankAccount.sum}
+                        </td>
+                        <td>
+                            ${bankAccount.valid}
+                        </td>
+                        <td>
+                            ${bankAccount.blocked}
+                        </td>
+                        <td>
+                            ${bankAccount.creditCardID}
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td>
-                ${client.firstName}
-            </td>
-            <td>
-                ${client.lastName}
-            </td>
-            <td>
-                ${client.bankAccountID}
-            </td>
-        </tr>
-    </table>
-    <br>
-    <table width="800" , align="justify">
-        <thead>
-        <th><fmt:message key="client.control.service.bankInfo"/></th>
-        </thead>
-        <tr>
-            <td><fmt:message key="client.control.service.bankInfo.bankAccountID"/></td>
-            <td><fmt:message key="client.control.service.bankInfo.sum"/></td>
-            <td><fmt:message key="client.control.service.bankInfo.valid"/></td>
-            <td><fmt:message key="client.control.service.bankInfo.blocked"/></td>
-            <td><fmt:message key="client.control.service.bankInfo.creditCardID"/></td>
-            <td><fmt:message key="client.control.service.bankInfo.orderList"/></td>
-        </tr>
-        <tr>
-            <td>
-                ${bankAccount.id}
-            </td>
-            <td>
-                ${bankAccount.sum}
-            </td>
-            <td>
-                ${bankAccount.valid}
-            </td>
-            <td>
-                ${bankAccount.blocked}
-            </td>
-            <td>
-                ${bankAccount.creditCardID}
-            </td>
-            <td>
-                <input name="orderList" list="orderList">
-                <datalist id="orderList">
+            <td width="30%" valign="top" align="justify">
+                <table width="100%">
+                    <thead>
+                    <th colspan="3"><fmt:message key="client.control.service.orderList"/></th>
+                    </thead>
+
+                    <tr>
+                        <td><b><fmt:message key="client.control.service.orderList.id"/></b></td>
+                        <td><b><fmt:message key="client.control.service.orderList.sum"/></b></td>
+                        <td><b><fmt:message key="client.control.service.orderList.paid"/></b></td>
+
+                    </tr>
+
                     <c:forEach var="order" items="${orderList}">
-                        <option>${order.sum}</option>
-                    </c:forEach>
-                </datalist>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <table width="800" , align="justify">
-        <thead>
-        <th><fmt:message key="client.control.service.availableEvents"/></th>
-        </thead>
-        <tr>
-            <td>
-                <a href="/PaymentControl?page=BLOCK_CREDIT_CARD&bankAccountID=${client.bankAccountID}&blocked=${!bankAccount.blocked}"><c:choose><c:when
-                        test="${bankAccount.blocked}"><fmt:message
-                        key="client.control.service.enableEvents.unblock"/></c:when><c:otherwise><fmt:message
-                        key="client.control.service.enableEvents.block"/></c:otherwise></c:choose>></a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form action="/PaymentControl" method="get">
-                    <input type="hidden" name="page" value="CREATE_ORDER">
-                    <input type="hidden" name="bankAccountID" value="${client.bankAccountID}">
-                    <table width="70%">
-                        <thead>
-                        <th><fmt:message key="client.control.service.enableEvents.createOrder"/></th>
-                        </thead>
                         <tr>
                             <td>
-                                <label for="sum"><fmt:message
-                                        key="client.control.service.enableEvents.createOrder.sum"/></label>
-                                <br>
-                                <input type="number" id="sum" name="sum" value="0"/>
+                                    ${order.id}
+                            </td>
+                            <td>
+                                    ${order.sum}
+                            </td>
+                            <td>
+                                    ${order.paid}
                             </td>
                         </tr>
-                        <tfoot>
-                        <tr>
-                            <td><fmt:message
-                                    key="client.control.service.enableEvents.createOrder"/></td>
-                            <td align="right" colspan="2">
-                                <input type="submit" value=<fmt:message
-                                        key="client.control.service.enableEvents.createOrder.create"/>>
-                            </td>
-                        </tr>
-                        </tfoot>
+                    </c:forEach>
 
-                    </table>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="justify">
+                <table width="100%">
+                    <thead>
+                    <th colspan="2"><fmt:message key="client.control.service.availableEvents"/></th>
+                    </thead>
+                    <tr>
+                        <td>
+                            <a href="/PaymentControl?page=BLOCK_CREDIT_CARD&bankAccountID=${client.bankAccountID}&blocked=${!bankAccount.blocked}"><c:choose><c:when
+                                    test="${bankAccount.blocked}"><fmt:message
+                                    key="client.control.service.enableEvents.unblock"/></c:when><c:otherwise><fmt:message
+                                    key="client.control.service.enableEvents.block"/></c:otherwise></c:choose></a>
+                        </td>
+                        <td>
+                            <form action="/PaymentControl" method="get">
+                                <input type="hidden" name="page" value="CREATE_ORDER">
+                                <input type="hidden" name="login" value="${client.login}">
+                                <input type="hidden" name="bankAccountID" value="${client.bankAccountID}">
+                                <table width="100%">
+                                    <tr>
+                                        <td><fmt:message key="client.control.service.enableEvents.createOrder"/>
+                                        <td>
+                                            <label for="sum"><fmt:message
+                                                    key="client.control.service.enableEvents.createOrder.sum"/></label>
 
-                </form>
+                                            <input type="number" id="sum" name="sum" value="0"/>
+                                        </td>
+                                        <td align="right" colspan="2">
+                                            <input type="submit" value=<fmt:message
+                                                    key="client.control.service.enableEvents.createOrder.create"/>>
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>

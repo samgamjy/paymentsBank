@@ -6,8 +6,8 @@
 <%@ page language="java" %>
 <%
     String username=(String) session.getAttribute("userLastName");
-    int role = 0;
-    if (session.getAttribute("role") != null) {
-        role = (Integer) session.getAttribute("role");
-    }
+//    int role = 0;
+//    if (session.getAttribute("role") != null) {
+//        role = (Integer) session.getAttribute("role");
+//    }
 %>

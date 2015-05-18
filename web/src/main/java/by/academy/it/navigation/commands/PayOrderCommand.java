@@ -37,6 +37,7 @@ public class PayOrderCommand implements Command {
             if ((order.getId() == orderID) && (!order.isPaid())) {
                 if (bankAccountService.payOrder(order)) {
                     orderService.setOrderPay(orderID, true);
+                    bankAccount = bankAccountService.getBankAccount(client.getBankAccountID());
                 }
             }
 

@@ -2,25 +2,6 @@
 <html>
 <head>
     <title></title>
-    <style type="text/css">
-        table {
-            border-collapse: collapse;
-        }
-
-        td, th {
-            border-bottom: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-        }
-
-        td:last-child, th:last-child {
-            border-right: none;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #777;
-            color: #ddd;
-        }
-    </style>
 </head>
 <body>
 <%@ include file="/pages/include/welcomeHeader.jsp" %>
